@@ -68,3 +68,6 @@ spec:
         - name: db-creds
           mountPath: /tmp
 ```
+
+* When a pod gets created, the kubelet knows we need the information from the pod definition and talks to CSI Driver. CSI Driver then points to Secrets provider and the secret provider will talk to AWS Secret Manager and the data flows back to the CSI Driver.
+* CSI Driver will mount the volume inside the pod and the volume would contain the secrets.
