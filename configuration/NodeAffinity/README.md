@@ -26,13 +26,13 @@ Just checks if the label `size` exists in the node
 ## Type of Node Affinity
 
 ### Available 
+`requiredDuringSchedulingIgnoredDuringExecution`
 
-> requiredDuringSchedulingIgnoredDuringExecution
-> preferredDuringSchedulingIgnoredDuringExecution
+`preferredDuringSchedulingIgnoredDuringExecution`
 
 ### Planned
 
-> requiredDuringSchedulingRequiredDuringExecution
+`requiredDuringSchedulingRequiredDuringExecution`
 
 **DuringScheduling** is a phase where the pod does not exists and it is created for the first time. 
 **DuringExecution** is the phase where the pod exists in the node and the node configuration is changed, like removing the labels.
