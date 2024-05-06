@@ -30,5 +30,20 @@ spec:
     - name: log-agent
       image: log-agent
 ```
+## Design patterns
 
+### SideCar
+* Having a separate container for the log, like log-agent is a side car approach.
+* The functionality of log-agent is to collect the logs from the other containers and send the logs to a Log Server.
 
+### Adapater
+* Let's say we have multiple applications generating logs in a different format, it would be hard to process various formats of the logs on the log server. 
+* Before sending the logs to the log server, you would like to convert the logs to a common format.
+* For this you deploy an adapter container
+* The adapter container processes the logs before sending them to the log server
+
+### Ambassador
+* You application communicates with different databases depending on the environment, like Dev, Test, Prod.
+* The application code has to be changed to point to correct db, before deploying the application to corresponding environment.
+* If we choose to outsource such a configuration to separate container with in a pod, you application can always refer to a db at localhost.
+* And the new container would proxy the request to the right container
