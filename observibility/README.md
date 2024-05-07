@@ -40,3 +40,36 @@ spec:
                 - cat
                 - /app/is_ready
 ```
+
+## Liveness Probe
+
+* Similar to Readiness probe, the application is checked if running fine or not periodically to continue to allow the traffic to the pod. 
+* This is useful in the case where the application container is not stuck or appear to be running fine for the pod, but the application is not actually working. 
+* So by periodically hitting an api to check the health or any other pattern like readyness probe, you can customize the logic to validate if the application is running fine or not and allow the traffic
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+    name: simple-webapp
+spec:
+    containers:
+    - name: simple-webapp
+      image: simple-webapp
+      ports:
+      - containerPort: 8080
+      readinessProbe:
+        httpGet:
+            path: /api/ready
+            port: 8080
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        failureThreshold: 8
+      livenessProbe:
+        httpGet:
+            path: /api/healthy
+            port: 8080
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        failureThreshold: 8
+```
