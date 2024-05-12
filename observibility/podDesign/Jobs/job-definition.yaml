@@ -12,3 +12,4 @@ spec:
           image: ubuntu
           command: ['expr', '3', '+', '2']
       restartPolicy: Never
+  backoffLimit: 4
