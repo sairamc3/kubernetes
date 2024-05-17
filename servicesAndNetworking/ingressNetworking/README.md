@@ -17,11 +17,15 @@ Now, you don't want your customers to remember the port number either.
 
 So you bring a `proxy server` between the DNS Server and the application service. The proxy server will point port `80` to the service port of `38080`. Since the default port is 80, for the url, the user need not specify the port while communicating. 
 
+![alt text](Service-Proxy.png "With proxy")
+
 All the above configuration is when you host your application in your data center.
 
 If you deploy your application in a cloud provider. 
 
 Instead of creating a service of type `NodePort` for you application, you create a service of type `LoadBalancer`. Kubernetes will do the same as `NodePort` and in addition to that k8 also sends a request to the cloud platform to provision a loadbalencer for the service. On receiving the request, the cloud provider will provide it's own load balancer, and that load balancer will have port 80 and it will point to the service and the nodeport. 
+
+![alt text](Service-Cloud.png "With Cloud Load Balancer")
 
 So far everything is good. 
 
