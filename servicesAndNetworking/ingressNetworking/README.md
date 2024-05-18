@@ -36,3 +36,15 @@ The business expands and the store would open a streaming service. So the the se
 |www.my-online-store.com/wear|wear-service|
 |www.my-online-store.com/watch|watch-service|
 
+
+Now the streaming/watch service is a separate deployment in the same cluster. If you deploy it to cloud cluster, similar to the wear-service, there would be a load balance for the watch-service as well. So now, you have two loadbalencers for the cloud service and then you need one more to route the traffic between these two. 
+
+![alt text](Servie-Proxy2.png "With two services in the cloud")
+
+The configuration becomes more complex as you scale up the application and you introduce new features or services. This also includes the https, which can be done at multiple leveles in the architecuture. Wouln't it be nice if all these are done by one component in kubernetes. 
+
+That's where ingress comes into picture. 
+
+![alt text] (Service-Ingress.png "With ingress configuration")
+
+
