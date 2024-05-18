@@ -22,30 +22,13 @@ In the above specified configuration, Ingress and Egress would be something like
 
 An example of the NetworkPolicy is provided in the [Network Policy](network-policy.yaml)
 
-```yaml
-apiVersion: networking.k8.io/v1
-kind: NetworkPolicy
-metadata:
-  name: db-policy
-spec:
-  podSelector:
-    matchLabels:
-      role: db
-  policyTypes:
-    - Ingress
-  ingress:
-  - from:
-      - podSelector:
-          matchLabels:
-            name: api-pod
-        namespaceSelector:
-            matchLabels:
-                name: prod
-    ports:
-      - protocol: TCP
-        port: 3306
-```
+### namespaceSelector
+
 Here without the namespace selector any pod from any namespace with matching label can communicate. If we need to restrict only the prod namespace pods only should be able to communicate with the prod db, then we need to use the `namespaceSlector`. Since we are using the `matchLabels`, we should label the namespace as well. 
+
+### ipBlock
+
+Suppose you connect your db to external backup server which is not part of the cluster, this is how will enforce the policy to allow the connection to the backup server. 
 
 Solutions that support network policies are:
 - kube-router
@@ -56,5 +39,5 @@ Solutions that support network policies are:
 Solutions that does not support
 - Flannel
 
-# Developing network policies
+
 
