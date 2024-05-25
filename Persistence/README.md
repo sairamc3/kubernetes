@@ -30,3 +30,36 @@ A persistence volume is a cluster wide pool of storage volumes, configured by an
 
 [Simple Persistance Voluem](simple-pv-definition.yaml)
 
+## Persistence Volume Claims
+
+* To make the storage available to a node
+* PV and PVC are two separate objects in kuberentes namespace 
+* An admin creates a set of PV's and user creates PVC's to use the storage
+* Once the PVC's are created, kuberentes binds the volumes to claims based on the request based on the properties set on the volume. 
+* Every persistence Volume claim is bound to single persistent volume
+* There are multiple criterias that would be checked to map the PV's to PVC's 
+* Like the memory required, read write access
+* If there are multiple PV's eligible, then you can use labels to map to a particular PV
+* There is **One to One** mapping between PV and PVC
+
+[PVC definition](pvc-definition.yaml)
+
+and the corresponding PV is as below
+
+[PV Definition](pv-definition.yaml)
+
+### Deleting the PVC
+
+You an delete the PVC with a simple `kubectl` command
+
+```bash
+kubectl delete persistencevolumeclaim myclaim
+```
+
+This would delete the PVC. But what happens to the mapping PV?
+
+There is property for PV called `persistenceVolumeReclaimPolicy`, which would be set to `Retain` be default. Which mean the PV still exists until it is manually deleted. It is not available for reuse by any other claims. 
+
+The other value is `Delete`, which would delete PV, after the deletion of PVC. 
+
+The last option would be `Recycle`, The data in the data volume will be scrubbed for making it available to other claims. 
